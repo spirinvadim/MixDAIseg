@@ -5,7 +5,7 @@ parser = argparse.ArgumentParser(description='DAIseg')
 
 subparser = parser.add_subparsers(dest='mode', required=True)
 
-parser_daiseg = subparsers.add_parser("daiseg")
+parser_daiseg = subparser.add_parser("daiseg")
 parser_daiseg.add_argument('--bed', type=str, help='Region bed file')
 parser_daiseg.add_argument('--EM', type=str, help='Whether or not to use EM algorithm')
 parser_daiseg.add_argument('--EM_steps', type=str, help='number of EMsteps')
@@ -19,9 +19,7 @@ parser_daiseg.add_argument('--obs_samples', type=str, help='File with samples na
 parser_daiseg.add_argument('--decoding', type=str, help='Viterbi or aposteriory decoding')
 parser_daiseg.add_argument('--cut_off', type=float, help='Decoding cut off')
 
-python3 dai.seg.py --obs_samples samples.txt --bed file.bed --HMM_par par.file.txt --EM no --prepared_file obs.txt --o out_prefix --arch_cover arch.covering.txt --decoding posterior --cut_off 0.9
-
-parser_mex_daiseg = subparsers.add_parser("mex_daiseg")
+parser_mex_daiseg = subparser.add_parser("mex_daiseg")
 parser_mex_daiseg.add_argument('--bed', type=str, help='Region bed file')
 parser_mex_daiseg.add_argument('--EM', type=str, help='Whether or not to use EM algorithm')
 parser_mex_daiseg.add_argument('--EM_steps', type=str, help='number of EMsteps')
@@ -34,7 +32,7 @@ parser_mex_daiseg.add_argument('--obs_samples', type=str, help='File with sample
 parser_mex_daiseg.add_argument('--obs_type', type=str, help='Type of observaions simple/independent')
 parser_mex_daiseg.add_argument('--transition_matrix', type=str, help='Chose the type of transition matrix')
 
-parser_leo_daiseg = subparsers.add_parser("leo_daiseg")
+parser_leo_daiseg = subparser.add_parser("leo_daiseg")
 parser_leo_daiseg.add_argument("-ind",help="[required] ingroup/outgrop list (json file) or comma-separated list e.g. ind1,ind2", type=str, required = True)
 parser_leo_daiseg.add_argument("-vcfOut",help="[required] path to list of comma-separated vcf/bcf file(s) containing the individuals in the outgroups", type=str, required = True)
 parser_leo_daiseg.add_argument("-vcfIn",help="[required] path to list of comma-separated vcf/bcf file(s) containing the individuals in the ingroup", type=str, required = True)
@@ -50,7 +48,7 @@ args = parser.parse_args()
 
 data = ['python3']
 if args.mode == 'daiseg':
-	data.append('daiseg/dai.seg.py')
+	data.append('src/daiseg/dai.seg.py')
 	if args.bed:
 		data.append('--bed')
 		data.append(args.bed)
@@ -88,7 +86,7 @@ if args.mode == 'daiseg':
 		data.append('--cut_off')
 		data.append(args.cut_off)
 elif args.mode == 'mex_daiseg':
-	data.append('mex_daiseg/daiseg.mex.2.py')
+	data.append('src/mex_daiseg/daiseg.mex.2.py')
 	if args.bed:
 		data.append('--bed')
 		data.append(args.bed)
@@ -107,9 +105,6 @@ elif args.mode == 'mex_daiseg':
 	if args.out_prefix:
 		data.append('--out_prefix')
 		data.append(args.out_prefix)
-	if args.EM_est:
-		data.append('--EM_est')
-		data.append(args.EM_est)
 	if args.prepared_file:
 		data.append('--prepared_file')
 		data.append(args.prepared_file)
@@ -126,36 +121,26 @@ elif args.mode == 'mex_daiseg':
 		data.append('--transition_matrix')
 		data.append(args.transition_matrix)
 elif args.mode == 'leo_daiseg':
-	data.append('leo_daiseg/src/main.py')
+	data.append('src/leo_daiseg/src/main.py')
 	if args.ind:
-		data.append('-ind')
-		data.append(args.ind)
+		data.append('-ind=' + args.ind)
 	if args.vcfOut:
-		data.append('-vcfOut')
-		data.append(args.vcfOut)
+		data.append('-vcfOut=' + args.vcfOut)
 	if args.vcfIn:
-		data.append('-vcfIn')
-		data.append(args.vcfIn)
+		data.append('-vcfIn=' + args.vcfIn)
 	if args.demo:
-		data.append('-demo')
-		data.append(args.demo)
+		data.append('-demo=' + args.demo)
 	if args.weights:
-		data.append('-weights')
-		data.append(args.weights)
+		data.append('-weights=' + args.weights)
 	if args.out:
-		data.append('-out')
-		data.append(args.out)
+		data.append('-out=' + args.out)
 	if args.ancestral:
-		data.append('-ancestral')
-		data.append(args.ancestral)
+		data.append('-ancestral=' + args.ancestral)
 	if args.refgenome:
-		data.append('-refgenome')
-		data.append(args.refgenome)
+		data.append('-refgenome=' + args.refgenome)
 	if args.haploid:
-		data.append('-haploid')
-		data.append(args.haploid)
+		data.append('-haploid=' + args.haploid)
 	if args.conditional:
-		data.append('-conditional')
-		data.append(args.conditional)
+		data.append('-conditional=' + args.conditional)
 
 subprocess.run(data)
