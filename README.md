@@ -1,92 +1,93 @@
+```markdown
 # Mixed DAIseg
 
-Mixed DAIseg is a Python library for genomic segmentation analysis, implementing algorithms from [DAIseg](https://github.com/Genomics-HSE/DAIseg), [DAIseg.mex](https://github.com/Genomics-HSE/DAIseg.mex), and [DAIseg-general](https://github.com/LeoPlanche/DAIseg). It provides a flexible interface for running segmentation tasks with configurable parameters. The library requires a virtual environment with `numpy` for operation.
+Mixed DAIseg — это Python-библиотека для анализа геномных данных, реализующая алгоритмы из [DAIseg](https://github.com/Genomics-HSE/DAIseg), [DAIseg.mex](https://github.com/Genomics-HSE/DAIseg.mex) и [DAIseg-general](https://github.com/LeoPlanche/DAIseg). Она предоставляет гибкий интерфейс для выполненияс настраиваемыми параметрами. Для работы библиотеки требуется виртуальное окружение с установленным `numpy`.
 
 ---
 
-## Installation
+## Установка
 
-1. **Create a virtual environment** (recommended):
+1. **Создайте виртуальное окружение** (рекомендуется):
    ```bash
    python3 -m venv daiseg_env
    source daiseg_env/bin/activate  # Linux/MacOS
-   # or
+   # или
    daiseg_env\Scripts\activate.bat  # Windows
    ```
 
-2. **Install dependencies**:
+2. **Установите зависимости**:
    ```bash
    pip install numpy
    ```
 
 ---
 
-## Usage
+## Использование
 
-To run Mixed DAIseg, execute the following command from your working directory:
+Для запуска Mixed DAIseg выполните следующую команду из рабочей директории:
 ```bash
-python3 daiseg.py --mode <MODE> [FLAGS]
+python3 daiseg.py --mode <mode> [flags]
 ```
 
-### Modes and Required Flags
+### Режимы и обязательные флаги
 
 #### `--mode simple`
-Corresponds to the implementation from [DAIseg](https://github.com/Genomics-HSE/DAIseg).  
-**Mandatory flags**:
+Соответствует реализации из [DAIseg](https://github.com/Genomics-HSE/DAIseg).  
+**Обязательные флаги**:
 
-| Flag               | Description                                                                 | Required Value         |
-|--------------------|-----------------------------------------------------------------------------|------------------------|
-| `--bed`            | Region bed file                                                             | Yes                    |
-| `--EM`             | Whether or not to use EM algorithm                                          | Yes                    |
-| `--EM_steps`       | Number of EM iterations.                                                    | No                     |
-| `--EM_samples`     | Number of samples used in the EM algorithm.                                 | No                     |
-| `--HMM_par`        | Path to HMM parameter file.                                                 | Yes                    |
-| `--out_prefix`     | Prefix for output files.                                                    | Yes                    |
-| `--EM_est`         | Make estimation of the all parameters or only coalescent times              | No                     |
-| `--prepared_file`  | Path to a preprocessed file                                                 | Yes                    |
-| `--arch_cover`     |                                                                             | Yes                    |
-| `--obs_samples`    | File with samples names                                                     | Yes                    |
-| `--decoding`       | Viterbi or aposteriory decoding'                                            | Yes                    |
-| `--cut_off`        | Decoding cut off                                                            | Yes                    |
+| Флаг               | Описание                                                                | Значение              |
+|--------------------|-------------------------------------------------------------------------|-----------------------|
+| `--bed`            | BED-файл с регионами                                                    | Обязательно           |
+| `--EM`             | Использовать алгоритм EM                                                | Обязательно           |
+| `--EM_steps`       | Количество итераций EM                                                  | Нет                   |
+| `--EM_samples`     | Количество образцов для алгоритма EM                                    | Нет                   |
+| `--HMM_par`        | Путь к файлу параметров HMM.                                            | Обязательно           |
+| `--out_prefix`     | Префикс для выходных файлов.                                            | Обязательно           |
+| `--EM_est`         | Оценка всех параметров или только времени коалесценции                  | Нет                   |
+| `--prepared_file`  | Путь к предобработанному файлу                                          | Обязательно           |
+| `--arch_cover`     |                                                                         | Обязательно           |
+| `--obs_samples`    | Файл с именами выборок                                                  | Обязательно           |
+| `--decoding`       | Тип декодирования: Витерби (`viterbi`) или апостериорное (`aposteriory`)| Обязательно           |
+| `--cut_off`        | Порог для декодирования                                                 | Обязательно           |
 
 #### `--mode admixed`
-Corresponds to the implementation from [DAIseg.mex](https://github.com/Genomics-HSE/DAIseg.mex).  
-**Mandatory flags**:
+Соответствует реализации из [DAIseg.mex](https://github.com/Genomics-HSE/DAIseg.mex).  
+**Обязательные флаги**:
 
-| Flag                  | Description                                                                 | Required Value         |
-|-----------------------|-----------------------------------------------------------------------------|------------------------|
-| `--bed`               | Region bed file                                                             | Yes                    |
-| `--EM`                | Whether or not to use EM algorithm                                          | Yes                    |
-| `--EM_steps`          | Number of EM iterations.                                                    | No                     |
-| `--EM_samples`        | Number of samples used in the EM algorithm.                                 | No                     |
-| `--HMM_par`           | Path to HMM parameter file.                                                 | Yes                    |
-| `--out_prefix`        | Prefix for output files.                                                    | Yes                    |
-| `--prepared_file`     | Path to a preprocessed file                                                 | Yes                    |
-| `--arch_cover`        |                                                                             | Yes                    |
-| `--obs_samples`       | File with samples names                                                     | Yes                    |
-| `--obs_type`          | Type of observed data (e.g., `reads`, `coverage`).                          | No                     |
-| `--transition_matrix` | Path to the transition matrix file for HMM.                                 | Yes                    |
+| Флаг                  | Описание                                                                | Значение              |
+|-----------------------|-------------------------------------------------------------------------|-----------------------|
+| `--bed`               | BED-файл с регионами                                                    | Обязательно           |
+| `--EM`                | Использовать алгоритм EM                                                | Обязательно           |
+| `--EM_steps`          | Количество итераций EM                                                  | Нет                   |
+| `--EM_samples`        | Количество выборок для алгоритма EM                                     | Нет                   |
+| `--HMM_par`           | Путь к файлу параметров HMM                                             | Обязательно           |
+| `--out_prefix`        | Префикс для выходных файлов                                             | Обязательно           |
+| `--prepared_file`     | Путь к предобработанному файлу                                          | Обязательно           |
+| `--arch_cover`        |                                                                         | Обязательно           |
+| `--obs_samples`       | Файл с именами выборок                                                  | Обязательно           |
+| `--obs_type`          | Использовать условную вероятность                                       | Нет                   |
+| `--transition_matrix` | Выбор типа матрицы перемещений                                          | Обязательно           |
 
 #### `--mode general`
-Corresponds to the implementation from [DAIseg-general](https://github.com/LeoPlanche/DAIseg).  
-**Mandatory flags**:
+Соответствует реализации из [DAIseg-general](https://github.com/LeoPlanche/DAIseg).  
+**Обязательные флаги**:
 
-| Flag            | Description                                                                                 | Required Value         |
-|-----------------|---------------------------------------------------------------------------------------------|------------------------|
-| `--ind`         | Ingroup/outgrop list (json file) or comma-separated list e.g. ind1,ind2                     | Yes                    |
-| `--vcfOut`      | Path to list of comma-separated vcf/bcf file(s) containing the individuals in the outgroups | Yes                    |
-| `--vcfIn`       | Path to list of comma-separated vcf/bcf file(s) containing the individuals in the ingroup   | Yes                    |
-| `--dem`         | Demographic model configuration file.                                                       | No                     |
-| `--weights`     | file with callability (defaults to all positions being called)                              | No                     |
-| `--out_prefix`  | Prefix for output files.                                                                    | No                     |
-| `--ancestral`   | fasta file with ancestral information - comma-separated list or wildcards like vcf argument | No                     |
-| `--refgenome`   | fasta file with reference genome - comma-separated list or wildcards like vcf argument      | No                     |
-| `--haploid`     | Change from using diploid data to haploid data                                              | No                     |
-| `--obs_type`    | Use conditional probability                                                                 | No                     |
+| Флаг            | Описание                                                                                | Значение               |
+|-----------------|-----------------------------------------------------------------------------------------|------------------------|
+| `--ind`         | Список ингруппы/аутгруппы (JSON-файл) или список через запятую, напр. ind1,ind2         | Обязательно            |
+| `--vcfOut`      | Путь к VCF/BCF-файлу(ам) с данными аутгруппы                                            | Обязательно            |
+| `--vcfIn`       | Путь к VCF/BCF-файлу(ам) с данными ингруппы                                             | Обязательно            |
+| `--dem`         | Файл конфигурации демографической модели                                                | Нет                    |
+| `--weights`     | Файл с показателями покрытия (по умолчанию все позиции считаются покрытыми)             | Нет                    |
+| `--out_prefix`  | Префикс для выходных файлов                                                             | Нет                    |
+| `--ancestral`   | FASTA-файл с информацией о предковой последовательности                                 | Нет                    |
+| `--refgenome`   | FASTA-файл с референсным геномом                                                        | Нет                    |
+| `--haploid`     | Использовать гаплоидные данные вместо диплоидных                                        | Нет                    |
+| `--obs_type`    | Использовать условные вероятности                                                       | Нет                    |
 
 ---
 
-For issues or contributions, refer to the original repositories:  
+Для вопросов или участия в разработке обратитесь к оригинальным репозиториям:  
 - [DAIseg](https://github.com/Genomics-HSE/DAIseg)  
 - [DAIseg.mex](https://github.com/Genomics-HSE/DAIseg.mex)  
 - [DAIseg-general](https://github.com/LeoPlanche/DAIseg)  
