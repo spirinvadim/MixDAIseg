@@ -1,4 +1,3 @@
-```markdown
 # Mixed DAIseg
 
 Mixed DAIseg — это Python-библиотека для анализа геномных данных, реализующая алгоритмы из [DAIseg](https://github.com/Genomics-HSE/DAIseg), [DAIseg.mex](https://github.com/Genomics-HSE/DAIseg.mex) и [DAIseg-general](https://github.com/LeoPlanche/DAIseg). Она предоставляет гибкий интерфейс для выполненияс настраиваемыми параметрами. Для работы библиотеки требуется виртуальное окружение с установленным `numpy`.
