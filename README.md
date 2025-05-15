@@ -1,4 +1,3 @@
-```markdown
 # Mixed DAIseg
 
 Mixed DAIseg is a Python library for genomic segmentation analysis, implementing algorithms from [DAIseg](https://github.com/Genomics-HSE/DAIseg), [DAIseg.mex](https://github.com/Genomics-HSE/DAIseg.mex), and [DAIseg-general](https://github.com/LeoPlanche/DAIseg). It provides a flexible interface for running segmentation tasks with configurable parameters. The library requires a virtual environment with `numpy` for operation.
